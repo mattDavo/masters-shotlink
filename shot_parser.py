@@ -90,6 +90,7 @@ def get_shots_from_inner_html(inner_html, hole, categorize=False):
         shots[shot].hole = hole
         shots[shot].par = par
 
+        # Find distance in yards, feet or inches
         r = re.search(
             "<div class=\"distance\">.*?<span>(\\d+)</span>.*?</div>", stuff)
         if r:
@@ -101,6 +102,12 @@ def get_shots_from_inner_html(inner_html, hole, categorize=False):
             shots[shot].shot_length = r.group(1) + " feet"
 
         r = re.search(
+            "<div class=\"distance\">.*?<span class=\"inch\">(\\d+)</span>.*?</div>", stuff)
+        if r:
+            shots[shot].shot_length = r.group(1) + " inches"
+
+        # Find distance to pin in yards, feet or inches
+        r = re.search(
             "<div class=\"topin\">.*?<span>(\\d+)</span>.*?</div>", stuff)
         if r:
             shots[shot].distance_after = r.group(1) + " yards"
@@ -109,6 +116,11 @@ def get_shots_from_inner_html(inner_html, hole, categorize=False):
             "<div class=\"topin\">.*?<span class=\"feet\">(\\d+)</span>.*?</div>", stuff)
         if r:
             shots[shot].distance_after = r.group(1) + " feet"
+
+        r = re.search(
+            "<div class=\"topin\">.*?<span class=\"inch\">(\\d+)</span>.*?</div>", stuff)
+        if r:
+            shots[shot].distance_after = r.group(1) + " inches"
 
     # Turn dictionary into ordered list of shots
     shots = [shots[shot] for shot in sorted(shots, key=int)]

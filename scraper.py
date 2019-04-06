@@ -22,8 +22,8 @@ rounds = [1, 2, 3, 4]
 
 browser = webdriver.Chrome()
 
-url = "http://2018.masters.com/en_US/scores/track/track.html?" + \
-      "pid=" + str(players[0]) + "&r=" + str(round_n) + "&h=" + str(hole_n) + "&s=1&c="
+url = "http://2018.masters.com/en_US/scores/track/track.html?pid=34046&r=4&h=18&s=1&c="
+browser.get(url)
 
 
 class element_has_inner_html(object):
@@ -42,6 +42,12 @@ class element_has_inner_html(object):
             return element
         else:
             return False
+
+
+# TODO:
+# Cleanup
+# Get working for OB and penalties
+# Make the maps
 
 
 with open("shots.csv", "w+") as csv_f:
