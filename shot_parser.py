@@ -47,14 +47,21 @@ def get_shots_from_inner_html(inner_html, hole, categorize=False):
         "<div class=\"yardTxt\">YDS<span id=\"holeYds\" class=\"data holeYds\">(\\d+)</span></div>",
         inner_html)
     if r:
-        hole_length = r.group(1) + "yards"
+        hole_length = r.group(1) + " yards"
 
+    # Find the canvas dimensions
     r = re.search(
         "<canvas id=\"shotCanvas\\d+\" width=\"(\\d+)\" height=\"(\\d+)\" class=\"type1\">",
         inner_html)
     if r:
         canvas_width = int(r.group(1))
         canvas_height = int(r.group(2))
+
+    r = re.search("<div class=\"details\">\n.*?<div class=\"name\">(.+?)</div>", inner_html)
+    if r:
+        player = r.group(1)
+    else:
+        print("Couldn't find player")
 
     # Remove some beginning and trailing garbage
     inner_html = inner_html.split("<div class=\"tracker\"", 1)[1]
@@ -89,6 +96,7 @@ def get_shots_from_inner_html(inner_html, hole, categorize=False):
         shots[shot].shot = int(shot)
         shots[shot].hole = hole
         shots[shot].par = par
+        shots[shot].player = player
 
         # Find distance in yards, feet or inches
         r = re.search(
@@ -121,6 +129,13 @@ def get_shots_from_inner_html(inner_html, hole, categorize=False):
             "<div class=\"topin\">.*?<span class=\"inch\">(\\d+)</span>.*?</div>", stuff)
         if r:
             shots[shot].distance_after = r.group(1) + " inches"
+
+        r = re.search(
+            "<div class=\"distance penalty\"><span class=\"penalty\">Penalty</span></div>", stuff)
+        if r:
+            shots[shot].type = "penalty"
+        else:
+            shots[shot].type = "normal"
 
     # Turn dictionary into ordered list of shots
     shots = [shots[shot] for shot in sorted(shots, key=int)]

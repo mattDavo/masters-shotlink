@@ -8,18 +8,22 @@ class Shot:
         self.category_after = None
         self.x = None
         self.y = None
+        self.player_id = None
         self.player = None
         self.round = None
         self.shot = None
         self.par = None
         self.hole = None
+        self.type = None
 
     def csv_dump(self):
-        return [self.player,
+        return [self.player_id,
+                self.player,
                 self.shot,
                 self.round,
                 self.par,
                 self.hole,
+                self.type,
                 self.distance_before,
                 self.distance_after,
                 self.shot_length,
@@ -30,11 +34,13 @@ class Shot:
 
     def __str__(self):
         return "Shot <" + \
-            "player=" + str(self.player) + \
+            "player_id=" + str(self.player_id) + \
+            ",player=" + str(self.player) + \
             ",shot=" + str(self.shot) + \
             ",round=" + str(self.round) + \
             ",par=" + str(self.par) + \
             ",hole=" + str(self.hole) + \
+            ",type=" + str(self.type) + \
             ",distance_before=" + str(self.distance_before) + \
             ",distance_after=" + str(self.distance_after) + \
             ",shot_length=" + str(self.shot_length) + \
