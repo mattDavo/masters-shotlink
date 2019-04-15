@@ -7,11 +7,11 @@ I thought this was interesting, so I looked into the tracking feature. After a b
 
 The second component was clearly harder to determine as the lie is never just written on the page, it is up to the viewer to interpret (which I assume is what Joe Peta when he did this manually). Now since there are points on the graphic showing the positions of the shots I thought it would be useful if we extract them.
 
-[Insert tracker image]
+<img src="https://raw.githubusercontent.com/mattDavo/masters-shotlink/master/images/track-example.png" width="600"/>
 
 Now that we have the positions of the shot, how do we use this to figure out the lie types of the shots? Well, what we can do (and what I’ve done) is use the images that the Masters website provides to determine what lies we have at the given positions. However, all the arbitrary pixels aren’t _too_ revealing to a program what the lie is like. So what I’ve done is opened up these images in photoshop and turned them into a map where specific RGB values represent a certain lie. Now we take the positions of shots and look at the color of the corresponding pixel and we will know roughly (more on this later) what lie it was.
 
-[insert map image]
+<img src="https://raw.githubusercontent.com/mattDavo/masters-shotlink/master/2018/maps/H01W.png" width="600"/>
 
 Now combining the simple text scraping, the pixel mapping and a bit of basic WebDriver page navigation we can record pretty much all of the shot data for a single US Masters tournament we require for strokes gained statistics in about 20 minutes.
 
