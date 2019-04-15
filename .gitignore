@@ -1,6 +1,4 @@
 # Project specific
-*.jpg
-*.png
 *.html
 *.vscode
 *.csv
