@@ -47,6 +47,7 @@ class element_has_inner_html(object):
 # TODO:
 # Cleanup
 # Make the maps
+# Convert yards, inches, feet all to a single unit
 
 
 with open("shots.csv", "w+") as csv_f:
